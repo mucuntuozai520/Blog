@@ -731,7 +731,7 @@ h5,h6{font-size:1em;}
             position: "left center"
         });
         <!--自动生成二维码-->
-        var serurl =/*[[#{blog.serurl}]]*/"192.168.0.117:8888";
+        var serurl =/*[[#{blog.serurl}]]*/"http://175.24.115.142:80";
         var url =/*[[@{/blog/{id}(id=${blog.id})}]]*/"";
         var qrcode = new QRCode("qrcode", {
             text: serurl+url,
