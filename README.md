@@ -7,3 +7,7 @@
 数据库：Mysql
 
 开发环境：java8 ，IDEA
+
+部署环境：linux（centos7.6）
+
+访问ip：http://175.24.115.142/
