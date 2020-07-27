@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head  th:replace="_fragments :: head(~{::title})">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--兼容移动端显示-->
     <title>博客详情</title>
@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="../static/css/typo.css">
 </head>
 <body>
-
 <!--导航-->
-<nav  th:replace="_fragments :: menu(0)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="_fragments :: menu(0)"  class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <h2 class="ui teal header item">Blog</h2>
@@ -31,6 +30,7 @@
         <i class="sidebar icon"></i>
     </a>
 </nav>
+<br>
 <!--中间内容--><!--positive message背景色,circular大圆角,inherit继承父级,bordered边框,floated浮动,field放置表单信息-->
 <div id="waypoint" class="m-padded-tb-big m-container-small animated fadeInDown" style="word-break: break-all">
     <div class="ui container">
