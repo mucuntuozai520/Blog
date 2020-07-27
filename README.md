@@ -4,10 +4,12 @@
 
 后端：SpringBoot，SpringMVC, Spring, Mybatis，Shiro，thymeleaf模板。
 
+插件集成: Markdown， Animate，Tocbot，Qrcode， Aplayer。
+
 数据库：Mysql
 
-开发环境：java8 ，IDEA
+开发环境：Java，IDEA
 
-部署环境：linux（centos7.6）
+部署环境：Linux（Centos7.6）
 
 访问ip：http://175.24.115.142/
