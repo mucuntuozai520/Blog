@@ -15,6 +15,7 @@
         <result property="adminComment" column="admin_comment"></result>
         <association property="blog" javaType="Blog">
             <id property="id" column="blog_id"></id>
+            <result property="title" column="title"/>
         </association>
         <association property="parentComment" javaType="Comment">
             <id property="id" column="parent_comment_id"></id>
@@ -58,7 +59,7 @@
 
     <select id="selectComments" resultMap="comment_blog_map">
         select t2.id,t2.nickname,t2.content,t2.create_time,
-        t2.blog_id,t2.parent_comment_nickname
+        t1.title,t2.parent_comment_nickname
         from t_blog t1,t_comment t2
         where t1.id=t2.blog_id
         order by create_time desc

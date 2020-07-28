@@ -69,8 +69,8 @@
                         <th>昵称</th>
                         <th>内容</th>
                         <th>创建时间</th>
-                        <th>博客ID</th>
-                        <th>父昵称</th>
+                        <th>博客</th>
+                        <th>回复的用户</th>
                         <th>操作</th>
                     </tr>
                 </thead>
@@ -80,7 +80,7 @@
                         <td th:text="${comment.nickname}">木村拓哉</td>
                         <td th:text="${comment.content}" style="word-break: break-all">哈哈哈</td>
                         <td th:text="${#dates.format(comment.createTime,'yyyy/MM/dd HH:mm:ss')}">2020-5-20 08:30</td>
-                        <td th:text="${comment.blog.id}">1</td>
+                        <td th:text="${comment.blog.title}">1</td>
                         <td th:text="${comment.parentComment!=null} ? ${comment.parentComment.nickname} : '&nbsp' ">CLF</td>
                         <td class="right aligned collapsing">
                             <a href="#" onclick="return confirm('确定要删除吗？')"
