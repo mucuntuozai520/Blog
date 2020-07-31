@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
     <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
     <link rel="stylesheet" type="text/css" href="https://www.huangwx.cn/css/sweetalert.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome/css/font-awesome.min.css">
 <body>
 <!--导航-->
 <nav  th:fragment="menu(n)" class="ui attached segment m-padded-tb-mini m-shadow-small animated fadeInDown">
@@ -146,6 +147,12 @@
         $('.ui.dropdown').dropdown({
             on: 'hover'
         });
+        <!--看板娘-->
+        var script5 = document.createElement('script');
+        script5.type = 'text/javascript';
+        script5.src = '\\js\\autoload.js';
+        $('body').append(script5);
+
 </script>
 </th:block>
 
