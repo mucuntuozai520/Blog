@@ -32,7 +32,7 @@
 </nav>
 <br>
 <!--中间内容--><!--positive message背景色,circular大圆角,inherit继承父级,bordered边框,floated浮动,field放置表单信息-->
-<div id="waypoint" class="m-padded-tb-big m-container animated fadeInDown" style="word-break: break-all">
+<div id="waypoint" class="m-padded-tb-big m-container animated fadeIn" style="word-break: break-all">
     <div class="ui container">
         <div class="ui top attached segment">
             <div class="ui horizontal link list">
@@ -499,7 +499,7 @@ h5,h6{font-size:1em;}
                                     <i class="calendar icon"></i><span class="date"
                                                                        th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm:ss')}">Today at 5:42PM</span>
                                 </div>
-                                <div class="text" th:text="${comment.content}">
+                                <div id="commentText" class="text" th:utext="${comment.content}">
                                     How artistic!
                                 </div>
                                 <div class="actions">
@@ -538,61 +538,25 @@ h5,h6{font-size:1em;}
 
                             <!--                </div>-->
                         </div>
-                        <!--/*-->
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="https://picsum.photos/id/1005/100/100">
-                            </a>
-                            <div class="content">
-                                <a class="author">Elliot Fu</a>
-                                <div class="metadata">
-                                    <span class="date">昨天上午12:30</span>
-                                </div>
-                                <div class="text">
-                                    <p>這對我的研究是非常有用.謝謝!</p>
-                                </div>
-                                <div class="actions">
-                                    <a class="reply">回复</a>
-                                </div>
-                            </div>
-                            <div class="comments">
-                                <div class="comment">
-                                    <a class="avatar">
-                                        <img src="https://picsum.photos/id/1005/100/100">
-                                    </a>
-                                    <div class="content">
-                                        <a class="author">Jenny Hess</a>
-                                        <div class="metadata">
-                                            <span class="date">刚刚</span>
-                                        </div>
-                                        <div class="text">艾略特你永远是多么正确 :) </div>
-                                        <div class="actions">
-                                            <a class="reply">回复</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="comment">
-                            <a class="avatar">
-                                <img src="https://picsum.photos/id/1005/100/100">
-                            </a>
-                            <div class="content">
-                                <a class="author">Joe Henderson</a>
-                                <div class="metadata">
-                                    <span class="date">5 天以前</span>
-                                </div>
-                                <div class="text">老兄，这太棒了。非常感谢。 </div>
-                                <div class="actions">
-                                    <a class="reply">回复</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--*/-->
                     </div>
+                    <!--后台校验-->
+                    <div style="display: none">
+                        <div class="ui message" id="tc" th:classappend="${#strings.contains(message,'失败')} ? 'negative' : 'success'"
+                             th:unless="${#strings.isEmpty(message)}">
+                            <i class="close icon"></i>
+                            <div class="header">提示：</div>
+                            <p id="chbtn" th:text="${message}">操作成功！</p>
+                        </div>
+                    </div>
+                    <!--评论内容不能为空-->
+                    <script>
+                        if ($('#tc').attr('class') == 'ui message negative') {
+                            if ($('#chbtn').text() == '评论失败!') {
+                                swal("评论内容不能为空!", null, "error")
+                            }
+                        }
+                    </script>
                 </div>
-
-
             </div>
 
             <div th:if="${session.theUser==null}">
@@ -603,9 +567,10 @@ h5,h6{font-size:1em;}
             <div id="comment-form" class="ui form" th:if="${session.theUser}!=null">
                 <input type="hidden" name="blog.id" th:value="${blog.id}"/>
                 <input type="hidden" name="parentComment.id" value="-1"/>
-                <div class="field">
-                    <textarea name="content" placeholder="请发表您宝贵的评论吧..."></textarea>
-                </div>
+<!--                <div class="field">-->
+<!--                    <textarea name="content" placeholder="请发表您宝贵的评论吧..."></textarea>-->
+<!--                </div>-->
+                <div id="commentEditor" class="m-margin-bottom-big" contenteditable="true" data-placeholder="请发表您宝贵的评论吧..."></div>
                 <div class="fields">
 <!--                    <div class="field m-mobile-wide m-margin-bottom-small">-->
 <!--                        <div class="ui left icon input">-->
@@ -619,14 +584,16 @@ h5,h6{font-size:1em;}
 <!--                            <input type="text" name="email" placeholder="邮箱">-->
 <!--                        </div>-->
 <!--                    </div>-->
+                    <!--表情按钮-->
+                    <div class="field  m-margin-bottom-small m-mobile-wide" data-tooltip="表情未加载完全或点击无响应可刷新页面重试">
+                        <button id="emojiBtn" type="button" class="ui yellow button m-mobile-wide"><i class="smile outline icon"></i>表情</button>
+                    </div>
                     <div class="field m-mobile-wide m-margin-bottom-small">
                         <button id="commentpost-btn" type="button" class="ui blue button m-mobile-wide"><i
                                 class="edit icon"></i>发布
                         </button>
                     </div>
                 </div>
-                <!-- 放置表单验证的提示信息 -->
-                <div class="ui error message"></div>
             </div>
 
         </div>
@@ -653,6 +620,7 @@ h5,h6{font-size:1em;}
 <div id="qrcode" class="ui wechat-qr flowing popup transition hidden" style="width: 130px !important;">
     <!--<img src="./static/images/wechat.jpg" alt="" class="ui rounded imag" style="width: 120px !important;">-->
 </div>
+
 
 <br>
 <br>
@@ -757,19 +725,6 @@ h5,h6{font-size:1em;}
                 console.log('Scrolled to waypoint! '+direction)
             }
         });
-        //评论表单验证
-        $('.ui.form').form({
-            fields: {
-                title: {
-                    identifier: 'content',
-                    rules: [{
-                        type: 'empty',
-                        prompt: '请输入评论内容！'
-                    }
-                    ]
-                },
-            }
-        });
         $('#commentpost-btn').click(function () {
             var boo = $('.ui.form').form('validate form');
             if (boo) {
@@ -781,7 +736,6 @@ h5,h6{font-size:1em;}
         });
 
         $(function () {
-
             $("#comment-container").load(/*[[@{/comments/{id}(id=${blog.id})}]]*/"comments/6");
         });
 
@@ -789,26 +743,45 @@ h5,h6{font-size:1em;}
             $("#comment-container").load(/*[[@{/comments}]]*/"", {
                 "parentComment.id": $("[name='parentComment.id']").val(),
                 "blog.id": $("[name='blog.id']").val(),
-                "content": $("[name='content']").val()
+                // "content": $("[name='content']").val()
+                "content" : document.getElementById("commentEditor").innerHTML
             }, function (responseTxt, statusTxt, xhr) {
-                $(window).scrollTo($('#comment-container'), 500);
+                //$(window).scrollTo($('#comment-container'), 500);
                 clearContent();
             });
         }
 
         function clearContent() {
-            $("[name='content']").val('');
+           // $("[name='content']").val('');
             $("[name='parentComment.id']").val(-1);
-            $("[name='content']").attr("placeholder", "请文明发言...");
+            //$("[name='content']").attr("placeholder", "请文明发言...");
+            document.getElementById("commentEditor").innerText='';
+            $("[id='commentEditor']").attr("data-placeholder", "请输入评论信息...");
         }
 
         function reply(obj) {
             var commentId = $(obj).data('commentid');
             var commentNickname = $(obj).data('commentnickname');
-            $("[name='content']").attr("placeholder", "回复 @" + commentNickname).focus();
+            $("[id='commentEditor']").attr("data-placeholder", "回复 @" + commentNickname).focus();
             $("[name='parentComment.id']").val(commentId);
             $(window).scrollTo($('#comment-form'), 500);
         }
+
+        /*加载emoji表情*/
+        onload = function () {
+            $("#commentEditor").emoji({
+                button: "#emojiBtn",  //评论表情
+                showTab: false,
+                animation: 'slide',
+                basePath: '/images/emoji',
+                icons: emojiLists
+            });
+            $("#commentText").emojiParse({
+                basePath: '/images/emoji',
+                icons: emojiLists
+            });
+        };
+
     </script>
 </body>
 </html>

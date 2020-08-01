@@ -87,10 +87,50 @@
 </div>
 
 
-<th:block th:replace="_fragments :: script">  <!--/*/th标签内容/*/-->  <!--加在静态页面是注释，在thymeleaf是有效的-->
-    <script src="../static/js/jquery-3.4.1.js"></script>
-    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
-</th:block>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="../static/js/mouse-events.js" th:src="@{/js/mouse-events.js}"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js" count="200" zindex="-2" opacity="0.5" color="47,135,193"></script>
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+<script>
+
+    <!--控制移动端下菜单按钮的展开和收起-->
+    $(".menu.toggle").click(function(){
+        $(".m-item").toggleClass("m-mobile-hide");
+    });
+    <!--搜索框的非空验证及跳转-->
+    $("#query").click(function () {
+        var queryInput = $("#query").prev().val();
+        if (queryInput != '') {
+            document.forms['search'].submit();
+        } else {
+            swal("请输入博客标题", null, "error")
+        }
+
+    })
+    <!--搜索框回车搜索-->
+    $('#zxc').keydown(function (event) {
+
+        if (event.keyCode == 13) {
+            if ($('#zxc').val() == "") {
+                swal("请输入博客标题", null, "error")
+                return false;
+            } else {
+                $("#query").click();
+            }
+
+        }
+    })
+    <!--控制自动下拉菜单-->
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+    <!--看板娘-->
+    var script5 = document.createElement('script');
+    script5.type = 'text/javascript';
+    script5.src = '\\js\\autoload.js';
+    $('body').append(script5);
+
+</script>
 
 
 <script>

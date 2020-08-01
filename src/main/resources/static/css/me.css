@@ -81,7 +81,10 @@ body{
 }
 
 .m-margin-bottom-small{
-    margin-bottom: 0.5em !important;
+     margin-bottom: 0.5em !important;
+ }
+.m-margin-bottom-big{
+    margin-bottom: 1.5em !important;
 }
 
 /*------opacity------*/
@@ -222,4 +225,32 @@ body{
 .type-color4 {
     border-top: solid !important;
     border-top-color: #5A5CAD !important;
+}
+
+/*评论区可编辑div样式*/
+#commentEditor{
+    height: 170px !important;
+    background-color: #fff !important;
+    border: 0.5px solid #ccc !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset !important;
+    color: #555 !important;
+    display: block !important;
+    font-size: 14px !important;
+    line-height: 1.42857 !important;
+    padding: 6px 12px !important;
+    transition: border-color 0.15s ease-in-out 0s, box-shadow 0.15s ease-in-out 0s !important;
+    width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+/*可编辑div实现placeholder效果*/
+#commentEditor:empty:before {
+    content: attr(data-placeholder) !important;
+    color:#bbb !important;
+}
+#commentEditor:focus{
+    border: 0.5px solid #2185D0 !important;
+    outline: none;
 }

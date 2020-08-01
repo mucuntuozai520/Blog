@@ -32,7 +32,7 @@
         from t_blog t1,t_comment t2
         where t1.id=t2.blog_id
         and t2.blog_id=#{blog_id}
-        order by create_time desc
+        order by create_time asc
     </select>
 
     <insert id="saveComment" parameterType="Comment">

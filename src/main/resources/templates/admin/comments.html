@@ -78,7 +78,7 @@
                     <tr th:each="comment : ${page.list}">
                         <td th:text="${comment.id}" class="left aligned collapsing" >1</td>
                         <td th:text="${comment.nickname}">木村拓哉</td>
-                        <td th:text="${comment.content}" style="word-break: break-all">哈哈哈</td>
+                        <td th:utext="${comment.content}" style="word-break: break-all">哈哈哈</td>
                         <td th:text="${#dates.format(comment.createTime,'yyyy/MM/dd HH:mm:ss')}">2020-5-20 08:30</td>
                         <td th:text="${comment.blog.title}">1</td>
                         <td th:text="${comment.parentComment!=null} ? ${comment.parentComment.nickname} : '&nbsp' ">CLF</td>

@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -34,9 +36,15 @@ public class CommentController {
     }
 
     @PostMapping("/comments")
-    public String post(Comment comment, HttpSession session) {
+    public String post(Comment comment, BindingResult bindingResult, HttpSession session, Model model) {
         System.out.println("进入comments控制器....");
         //--------------
+        String content = comment.getContent();
+        if(content == null || content.equals("")){
+            model.addAttribute("message", "评论失败!");
+            model.addAttribute("comments", commentService.selectCommentsByBlogId(comment.getBlog().getId()));
+            return "blog :: commentList";
+        }
         User theUser = (User) session.getAttribute("theUser");
         comment.setNickname(theUser.getNickname());
         comment.setEmail(theUser.getEmail());
