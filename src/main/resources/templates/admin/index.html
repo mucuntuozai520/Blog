@@ -8,34 +8,7 @@
     <link rel="stylesheet" href="../../static/css/me.css">
 </head>
 <body>
-<script src="js/myfocus-2.0.4.min.js" th:src="@{/js/myfocus-2.0.4.min.js}" type="text/javascript"></script>
-<script src="js/mf-pattern/mF_YSlider.js" th:src="@{/js/mf-pattern/mF_YSlider.js}" type="text/javascript"></script>
-<link rel="stylesheet" href="js/mf-pattern/mF_YSlider.css" th:href="@{/js/mf-pattern/mF_YSlider.css}" type="text/css" />
-<script type="text/javascript">
-    myFocus.set({
-        id:'div1'
-    })
-</script>
-<style>
-    *{
-        margin: 0px;
-        padding: 0px;
-    }
-    li{
-        list-style: none;
 
-    }
-    #div1{
-        margin: 0 auto;
-        width: 700px;
-        height: 500px;
-        overflow: hidden;
-        margin-top: -20px;
-    }
-    .loading{
-        margin: 0 auto;
-    }
-</style>
 <!--导航-->
 <nav th:replace="admin/_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
@@ -67,22 +40,11 @@
 <!--中间内容--><!--dropdown下拉菜单,selection可选择-->
 <div class="m-padded-tb-big m-container-small">
     <div class="ui container">
-        <div style="text-align: center" class="ui success large message">
+        <div class="ui success large message">
+            <h3>Hello</h3>
             <p>陈林枫,欢迎登陆!</p>
         </div><!--图片大小1000*500-->
-    </div>
-</div>
-<div id="div1">
-    <div class="pic">
-        <ul>
-            <li><img src="imgs/ad2.jpg" th:src="@{/images/3.jpg}"></li>
-            <li><img src="imgs/ad3.jpg" th:src="@{/images/1.jpg}"></li>
-            <li><img src="imgs/ad4.jpg" th:src="@{/images/5.jpg}"></li>
-            <li><img src="imgs/ad4.jpg" th:src="@{/images/4.jpg}"></li>
-            <li><img src="imgs/ad4.jpg" th:src="@{/images/2.jpg}"></li>
-            <li><img src="imgs/ad4.jpg" th:src="@{/images/7.jpg}"></li>
-            <li><img src="imgs/ad2.jpg" th:src="@{/images/6.jpg}"></li>
-        </ul>
+        <img src="https://picsum.photos/id/1079/1000/500" alt="" class="ui rounded bordered fluid image">
     </div>
 </div>
 
