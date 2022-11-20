@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--兼容移动端显示-->
+    <title>评论管理</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css"/>
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+<!--路径问题:路径传值必须/{id}/(id=${type.id})}这个格式-->
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(4)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="#" class="active m-item item m-mobile-hide"><i class="home icon"></i>博客</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="book icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="tags icon"></i>标签</a>
+            <div class="right m-item m-mobile-hide menu">
+                <div class="ui dropdown item">
+                    <div class="text">
+                        <img src="https://i.loli.net/2020/07/13/FPZ1w56gHAdCaxu.jpg" alt="" class="ui avatar image">
+                        CLF
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">注销</a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<!--中间内容--><!--dropdown下拉菜单,selection可选择-->
+<div class="m-padded-tb-big m-container-small">
+    <div class="ui container">
+
+        <div style="display: none">
+            <div class="ui message" id="tc" th:classappend="${#strings.contains(message,'失败')} ? 'negative' : 'success'"
+                 th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示：</div>
+                <p id="chbtn" th:text="${message}">操作成功！</p>
+            </div>
+        </div>
+
+        <div class="ui top attached segment animated bounceInRight">
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <h3 class="ui header" style="color: #4183C4">评论</h3>
+                </div>
+                <div class="right aligned column">
+                    共 <h2 class="ui orange header m-inline-block m-text-thin" th:text="${page.getTotal()}">
+                    20</h2> 条
+                </div>
+            </div>
+        </div>
+
+            <table class="ui celled table animated bounceInLeft">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>昵称</th>
+                        <th>内容</th>
+                        <th>创建时间</th>
+                        <th>博客</th>
+                        <th>回复的用户</th>
+                        <th>操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="comment : ${page.list}">
+                        <td th:text="${comment.id}" class="left aligned collapsing" >1</td>
+                        <td th:text="${comment.nickname}">木村拓哉</td>
+                        <td th:utext="${comment.content}" style="word-break: break-all">哈哈哈</td>
+                        <td th:text="${#dates.format(comment.createTime,'yyyy/MM/dd HH:mm:ss')}">2020-5-20 08:30</td>
+                        <td th:text="${comment.blog.title}">1</td>
+                        <td th:text="${comment.parentComment!=null} ? ${comment.parentComment.nickname} : '&nbsp' ">CLF</td>
+                        <td class="right aligned collapsing">
+                            <a href="#" onclick="return confirm('确定要删除吗？')"
+                               th:href="@{/admin/comments/delete/{id}/(id=${comment.id})}" class="ui red basic button"><i
+                                    class="trash icon"></i>删除</a>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th colspan="7">
+                            <div class="ui pagination menu" th:if="${page.getPages()>1}">
+                                <a class="icon item" th:href="@{/admin/comments}" th:unless="${page.isIsFirstPage()}">首页</a>
+                                <a class="icon item"
+                                   th:href="@{/admin/comments/(pageNum=${page.isHasPreviousPage()}?${page.getPageNum()-1}:1)}"
+                                   th:unless="${page.isIsFirstPage()}">上一页</a>
+                                <a class="icon item"
+                                   th:href="@{/admin/comments/(pageNum=${page.isHasNextPage()}?${page.getPageNum()+1}:${page.pages})}"
+                                   th:unless="${page.isIsLastPage()}">下一页</a>
+                                <a class="icon item" th:href="@{/admin/comments/(pageNum=${page.pages})}"
+                                   th:unless="${page.isIsLastPage()}">尾页</a>
+
+                            </div>
+
+                        </th>
+                    </tr>
+                </tfoot>
+            </table>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+<!--底部-->
+<footer  th:replace="admin/_fragments :: footer"  class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui inverted stackable divided grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                    <img src="../../static/images/wechat.jpg" class="ui rounded image" alt="" style="width:110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事 (User Story)</a>
+                    <a href="#" class="item">用户故事 (User Story)</a>
+                    <a href="#" class="item">用户故事 (User Story)</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Email：2534800363@qq.com</a>
+                    <a href="#" class="item">QQ：2534800363</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">我建立博客的初衷是把我所学所懂记录下来以及收集网络上优秀的文章分享给大家，希望可以给来到这儿的人有所帮助...</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 Designed by ChenLinFeng</p>
+    </div>
+</footer>
+
+<th:block th:replace="admin/_fragments :: script"> <!--/*/th标签内容/*/-->  <!--加在静态页面是注释，在thymeleaf是有效的-->
+<script src="../../static/js/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+</th:block>
+
+    <script>
+        <!--提示信息-->
+        if ($('#tc').attr('class') == 'ui message success') {
+            if ($('#chbtn').text() == '删除成功！') {
+                swal("已删除", null, "success")
+            }
+        } else if ($('#tc').attr('class') == 'ui message negative') {
+           if ($('#chbtn').text() == '删除失败！') {
+                swal("删除失败", '系统异常', "error")
+            }
+        }
+    </script>
+</body>
+</html>

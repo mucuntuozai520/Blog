@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--兼容移动端显示-->
+    <title>个人信息</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css"/>
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+<br/>
+<br/>
+
+<div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
+    <div class="ur container">
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui blue image header">
+                    <div class="content">
+                        <span style="color: cornflowerblue">个人信息</span>
+                    </div>
+                </h2>
+
+                <form class="ui large form" method="post" action="#" th:action="@{/admin/saveInfo}">
+                    <div class="ui segment">
+                        <input type="hidden" name="id" th:value="${session.user.id}"/>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="nickname" th:value="${userInfo.nickname}" placeholder="昵称">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="mail icon"></i>
+                                <input type="text" name="email" th:value="${userInfo.email}" placeholder="邮箱">
+                            </div>
+                        </div>
+                        <button class="ui fluid large blue submit button"><i class="save icon"></i>保&nbsp;&nbsp;&nbsp;&nbsp;存
+                        </button>
+                        <br/>
+                        <button type="button" class="ui fluid large button" onclick="window.history.go(-1)"><i
+                                class="share icon"></i>返&nbsp;&nbsp;&nbsp;&nbsp;回
+                        </button>
+                    </div>
+
+                    <div class="ui error mini message"></div><!-- 表单验证的错误消息-->
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+<script src="../../static/js/mouse-events.js" th:src="@{/js/mouse-events.js}"></script>
+<script type="text/javascript" src="https://cdn.bootcss.com/canvas-nest.js/1.0.1/canvas-nest.min.js" count="200" zindex="-2" opacity="0.5" color="47,135,193"></script>
+<script type="text/javascript" src="https://www.huangwx.cn/js/sweetalert-dev.js"></script>
+<script>
+    <!--控制移动端下菜单按钮的展开和收起-->
+    $(".menu.toggle").click(function(){
+        $(".m-item").toggleClass("m-mobile-hide");
+    });
+    <!--鼠标悬浮弹出下拉菜单-->
+    $(".ui.dropdown").dropdown({
+        on: "hover"
+    });
+    //消息提示关闭初始化
+    $('.message .close')
+        .on('click', function () {
+            $(this)
+                .closest('.message')
+                .transition('fade');
+        });
+</script>
+
+<script>
+
+    $('.ui.form').form({//表单验证inline: true和on: 'blur'可以用错误信息显示在框内
+        inline: true,
+        on: 'blur',
+        fields: {
+            nickname: {
+                identifier: 'nickname',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入昵称！'
+                }]
+            },
+            password: {
+                identifier: 'password',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入密码！'
+                }]
+            },
+            email: {
+                identifier: 'email',
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入邮箱地址！'
+                    },
+                    {
+                        type: 'regExp',
+                        value: '\\w+@[0-9a-zA-Z]{2,4}\\.[a-zA-Z]{2,3}(\\.[a-zA-Z]{2,3})?$',
+                        prompt: '邮箱格式错误!'
+                    }
+                ]
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

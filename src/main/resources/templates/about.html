@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head  th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--兼容移动端显示-->
+    <title>关于我</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css"/>
+    <link rel="stylesheet" href="../static/css/me.css">
+</head>
+<body>
+
+<!--导航-->
+<nav class="ui attached segment m-padded-tb-tiny m-shadow-small animated fadeInDown">
+    <div class="ui container">
+        <div class="ui secondary stackable menu">
+            <a href="#" th:href="@{/}" target="_blank">
+                <img th:src="@{/images/logo.jpg}" style="width: 100px;height: 60px">
+            </a>
+            <a href="#" th:href="@{/}" class="m-item item m-mobile-hide" target="_blank" ><i
+                    class="home icon"></i>首页</a>
+            <a href="#" th:href="@{/types/-1}" class="m-item item m-mobile-hide" target="_blank"><i
+                    class="book icon"></i>分类</a>
+            <a href="#" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" target="_blank"><i
+                    class="tags icon"></i>标签</a>
+            <a href="#" class="m-item item m-mobile-hide active"><i
+                    class="info icon"></i>关于我</a>
+            <a href="#" th:href="@{/admin}" class="m-item item m-mobile-hide" target="_blank"><i class="lock icon"></i>网站后台</a>
+            <div class="m-item left item m-mobile-hide">
+                <form name="search" action="#" method="get" th:action="@{/search}" target="_blank">
+                    <div class="ui search">
+                        <div class="ui icon input">
+                            <input class="prompt" id="zxc" type="text" name="query" placeholder="Search..."
+                                   th:value="${query}"/>
+                            <i id="query" class="search link icon"></i>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <a href="#" target="_blank" th:if="${session.theUser}==null" th:href="@{/user/toLogin}" class="m-item item m-mobile-hide"><i
+                    class="sign in icon"></i>登录</a>
+            <a href="#" target="_blank" th:if="${session.theUser}==null" th:href="@{/user/toRegister}"
+               class="left m-item item m-mobile-hide"><i class="heartbeat icon"></i>注册</a>
+
+            <div class="left m-item m-mobile-hide menu" th:if="${session.theUser}!=null">
+                <div class="ui dropdown item">
+                    <img class="ui avatar image" th:src="${session.theUser.avatar}" style="width: 40px;height: 40px">&nbsp;&nbsp;
+                    <span th:text="${session.theUser.nickname}">CLF</span>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" th:href="@{/user/logout}" class="item"><i class="sign out icon"></i>退出登录</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <span class="ui menu toggle icon button m-right-top m-mobile-show">
+            <i class="block sidebar icon"></i>
+        </span>
+</nav>
+<!--中间内容-->
+<div class="m-padded-tb-big m-container" style="word-break: break-all">
+    <div class="ui container">
+        <div class="ui stackable grid">
+            <div class="eleven wide column animated bounceInLeft">
+                <div class="ui segment"><!--图片大小800*600 -->
+                    <img src="../static/images/mctz.jpg" th:src="@{/images/mctz.jpg}" alt="" class="ui rounded image">
+                </div>
+            </div>
+            <div class="five wide column animated bounceInRight">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+                <div class="ui attached segment">
+                    <p class="m-text">身体和心灵总有一个在路上</p><!--只要朝着一个方向努力，一切都会变得得心应手-->
+                    <p class="m-text">一个热爱编程的开发者，喜欢钻研和探索，希望可以认识志同道合的小伙伴</p>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui blue basic left pointing label">编程</div>
+                    <div class="ui blue basic left pointing label">思考</div>
+                    <div class="ui blue basic left pointing label">运动</div>
+                </div>
+                <div class="ui attached segment">
+                    <div class="ui violet basic left pointing label m-margin-tb-tiny">Java</div>
+                    <div class="ui violet basic left pointing label m-margin-tb-tiny">JavaScript</div>
+                    <div class="ui violet basic left pointing label m-margin-tb-tiny">MySql</div>
+<!--                    <div class="ui blue basic left pointing label m-margin-tb-tiny">JavaWeb</div>-->
+<!--                    <div class="ui blue basic left pointing label m-margin-tb-tiny">Node</div>-->
+<!--                    <div class="ui blue basic left pointing label m-margin-tb-tiny">React</div>-->
+                    <div class="ui violet basic left pointing label m-margin-tb-tiny">...</div>
+                </div>
+                <div class="ui bottom attached segment">
+                    <a href="https://github.com/mucuntuozai520/Blog" target="_blank"
+                       title="https://github.com/mucuntuozai520/Blog" class="ui circular icon button"><i
+                            class="github icon"></i></a>
+                    <a class="ui wechat circular icon button"><i class="weixin icon"></i></a>
+                    <a class="ui qq circular icon button" data-content="2534800363" data-position="bottom center"><i class="qq icon"></i></a>
+
+                    <div class="ui wechat-qr flowing popup transition hidden">
+                        <img src="../static/images/wechat.jpg" th:src="@{/images/wechat.jpg}" alt="" class="ui rounded imag" style="width: 110px">
+                    </div>
+                </div>
+                <link rel="stylesheet" href="../static/css/APlayer.min.css" th:href="@{/css/APlayer.min.css}">
+                <div class="music-player" style="width: 300px">
+                    <div class="row">
+                        <div class="col l8 offset-l2 m10 offset-m1 s12">
+                            <div id="aplayer" class="music aplayer aplayer-withlist">
+                                <div class="aplayer-body">
+                                    <div class="aplayer-pic" style="background-image: url(&quot;http://p2.music.126.net/9WsKmWod4yapwrjpaFCyvg==/5883486720419427.jpg?param=130y130;); background-color: rgb(66, 185, 131);">
+                                        <div class="aplayer-button aplayer-play"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 31"><path d="M15.552 15.168q0.448 0.32 0.448 0.832 0 0.448-0.448 0.768l-13.696 8.512q-0.768 0.512-1.312 0.192t-0.544-1.28v-16.448q0-0.96 0.544-1.28t1.312 0.192z"></path></svg></div>
+                                    </div>
+                                    <div class="aplayer-info">
+                                        <div class="aplayer-music">
+                                            <span class="aplayer-title">Scarborough Fair</span>
+                                            <span class="aplayer-author"> - Sarah Brightman</span>
+                                        </div>
+                                        <div class="aplayer-lrc">
+                                            <div class="aplayer-lrc-contents" style="transform: translateY(0); -webkit-transform: translateY(0);"></div>
+                                        </div>
+                                        <div class="aplayer-controller">
+                                            <div class="aplayer-bar-wrap">
+                                                <div class="aplayer-bar">
+                                                    <div class="aplayer-loaded" style="width: 80.4886%;"></div>
+                                                    <div class="aplayer-played" style="width: 0.698458%; background: rgb(66, 185, 131);">
+                        <span class="aplayer-thumb" style="background: #42b983;">
+                            <span class="aplayer-loading-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32"><path d="M4 16c0-6.6 5.4-12 12-12s12 5.4 12 12c0 1.2-0.8 2-2 2s-2-0.8-2-2c0-4.4-3.6-8-8-8s-8 3.6-8 8 3.6 8 8 8c1.2 0 2 0.8 2 2s-0.8 2-2 2c-6.6 0-12-5.4-12-12z"></path></svg></span>
+                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="aplayer-time">
+                <span class="aplayer-time-inner">
+                    <span class="aplayer-ptime">00:01</span> / <span class="aplayer-dtime">04:13</span>
+                </span>
+                                                <span class="aplayer-icon aplayer-icon-back">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32"><path d="M25.468 6.947c-0.326-0.172-0.724-0.151-1.030 0.057l-6.438 4.38v-3.553c0-0.371-0.205-0.71-0.532-0.884-0.326-0.172-0.724-0.151-1.030 0.057l-12 8.164c-0.274 0.186-0.438 0.496-0.438 0.827s0.164 0.641 0.438 0.827l12 8.168c0.169 0.115 0.365 0.174 0.562 0.174 0.16 0 0.321-0.038 0.468-0.116 0.327-0.173 0.532-0.514 0.532-0.884v-3.556l6.438 4.382c0.169 0.115 0.365 0.174 0.562 0.174 0.16 0 0.321-0.038 0.468-0.116 0.327-0.173 0.532-0.514 0.532-0.884v-16.333c0-0.371-0.205-0.71-0.532-0.884z"></path></svg>
+                </span>
+                                                <span class="aplayer-icon aplayer-icon-play"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 16 31"><path d="M15.552 15.168q0.448 0.32 0.448 0.832 0 0.448-0.448 0.768l-13.696 8.512q-0.768 0.512-1.312 0.192t-0.544-1.28v-16.448q0-0.96 0.544-1.28t1.312 0.192z"></path></svg></span>
+                                                <span class="aplayer-icon aplayer-icon-forward">
+                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32"><path d="M25.468 6.947c-0.326-0.172-0.724-0.151-1.030 0.057l-6.438 4.38v-3.553c0-0.371-0.205-0.71-0.532-0.884-0.326-0.172-0.724-0.151-1.030 0.057l-12 8.164c-0.274 0.186-0.438 0.496-0.438 0.827s0.164 0.641 0.438 0.827l12 8.168c0.169 0.115 0.365 0.174 0.562 0.174 0.16 0 0.321-0.038 0.468-0.116 0.327-0.173 0.532-0.514 0.532-0.884v-3.556l6.438 4.382c0.169 0.115 0.365 0.174 0.562 0.174 0.16 0 0.321-0.038 0.468-0.116 0.327-0.173 0.532-0.514 0.532-0.884v-16.333c0-0.371-0.205-0.71-0.532-0.884z"></path></svg>
+                </span>
+                                                <div class="aplayer-volume-wrap">
+                                                    <button type="button" class="aplayer-icon aplayer-icon-volume-down"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 28 32"><path d="M13.728 6.272v19.456q0 0.448-0.352 0.8t-0.8 0.32-0.8-0.32l-5.952-5.952h-4.672q-0.48 0-0.8-0.352t-0.352-0.8v-6.848q0-0.48 0.352-0.8t0.8-0.352h4.672l5.952-5.952q0.32-0.32 0.8-0.32t0.8 0.32 0.352 0.8zM20.576 16q0 1.344-0.768 2.528t-2.016 1.664q-0.16 0.096-0.448 0.096-0.448 0-0.8-0.32t-0.32-0.832q0-0.384 0.192-0.64t0.544-0.448 0.608-0.384 0.512-0.64 0.192-1.024-0.192-1.024-0.512-0.64-0.608-0.384-0.544-0.448-0.192-0.64q0-0.48 0.32-0.832t0.8-0.32q0.288 0 0.448 0.096 1.248 0.48 2.016 1.664t0.768 2.528z"></path></svg></button>
+                                                    <div class="aplayer-volume-bar-wrap">
+                                                        <div class="aplayer-volume-bar">
+                                                            <div class="aplayer-volume" style="height: 70%; background: rgb(66, 185, 131);"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="aplayer-icon aplayer-icon-order">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32"><path d="M0.622 18.334h19.54v7.55l11.052-9.412-11.052-9.413v7.549h-19.54v3.725z"></path></svg>
+                                                </button>
+                                                <button type="button" class="aplayer-icon aplayer-icon-loop">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 29 32"><path d="M9.333 9.333h13.333v4l5.333-5.333-5.333-5.333v4h-16v8h2.667v-5.333zM22.667 22.667h-13.333v-4l-5.333 5.333 5.333 5.333v-4h16v-8h-2.667v5.333z"></path></svg>
+                                                </button>
+                                                <button type="button" class="aplayer-icon aplayer-icon-menu">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 22 32"><path d="M20.8 14.4q0.704 0 1.152 0.48t0.448 1.12-0.48 1.12-1.12 0.48h-19.2q-0.64 0-1.12-0.48t-0.48-1.12 0.448-1.12 1.152-0.48h19.2zM1.6 11.2q-0.64 0-1.12-0.48t-0.48-1.12 0.448-1.12 1.152-0.48h19.2q0.704 0 1.152 0.48t0.448 1.12-0.48 1.12-1.12 0.48h-19.2zM20.8 20.8q0.704 0 1.152 0.48t0.448 1.12-0.48 1.12-1.12 0.48h-19.2q-0.64 0-1.12-0.48t-0.48-1.12 0.448-1.12 1.152-0.48h19.2z"></path></svg>
+                                                </button>
+                                                <button type="button" class="aplayer-icon aplayer-icon-lrc">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32"><path d="M26.667 5.333h-21.333c-0 0-0.001 0-0.001 0-1.472 0-2.666 1.194-2.666 2.666 0 0 0 0.001 0 0.001v-0 16c0 0 0 0.001 0 0.001 0 1.472 1.194 2.666 2.666 2.666 0 0 0.001 0 0.001 0h21.333c0 0 0.001 0 0.001 0 1.472 0 2.666-1.194 2.666-2.666 0-0 0-0.001 0-0.001v0-16c0-0 0-0.001 0-0.001 0-1.472-1.194-2.666-2.666-2.666-0 0-0.001 0-0.001 0h0zM5.333 16h5.333v2.667h-5.333v-2.667zM18.667 24h-13.333v-2.667h13.333v2.667zM26.667 24h-5.333v-2.667h5.333v2.667zM26.667 18.667h-13.333v-2.667h13.333v2.667z"></path></svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="aplayer-notice"></div>
+                                    <div class="aplayer-miniswitcher"><button class="aplayer-icon"><svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 32 32"><path d="M22 16l-10.105-10.6-1.895 1.987 8.211 8.613-8.211 8.612 1.895 1.988 8.211-8.613z"></path></svg></button></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<!--底部-->
+<footer  th:replace="_fragments :: footer"   class="ui inverted vertical segment m-padded-tb-massive">
+    <div class="ui center aligned container">
+        <div class="ui inverted stackable divided grid">
+            <div class="three wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                    <img src="../static/images/wechat.jpg" class="ui rounded image" alt="" style="width:110px">
+                    </div>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">最新博客</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">用户故事 (User Story)</a>
+                    <a href="#" class="item">用户故事 (User Story)</a>
+                    <a href="#" class="item">用户故事 (User Story)</a>
+                </div>
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">联系我</h4>
+                <div class="ui inverted link list">
+                    <a href="#" class="item">Email：2534800363@qq.com</a>
+                    <a href="#" class="item">QQ：2534800363</a>
+                </div>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header m-text-thin m-text-spaced ">Blog</h4>
+                <p class="m-text-thin m-text-spaced m-opacity-mini">我建立博客的初衷是把我所学所懂记录下来以及收集网络上优秀的文章分享给大家，希望可以给来到这儿的人有所帮助...</p>
+            </div>
+        </div>
+        <div class="ui inverted section divider"></div>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 Designed by ChenLinFeng</p>
+    </div>
+</footer>
+
+<th:block th:replace="_fragments :: script">  <!--/*/th标签内容/*/-->  <!--加在静态页面是注释，在thymeleaf是有效的-->
+<script src="../static/js/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+</th:block>
+
+    <script>
+        <!--控制qq的弹出-->
+        $(".qq").popup();
+        <!--控制微信的弹出-->
+        $(".wechat").popup({
+            popup: $(".wechat-qr"),
+            position: "bottom center"
+        });
+        $("iframe").focus(function () {
+            swal("发布成功", null, "success")
+        })
+        // window.onload = function () {
+        //     document.getElementById("loading").style.display = "none";
+        // }
+    </script>
+
+    <script src="../static/js/APlayer.min.js" th:src="@{/js/APlayer.min.js}" ></script>
+    <script>
+        $(function () {
+            new APlayer({
+                container: document.getElementById('aplayer'),
+                fixed: 'false' === 'true',
+                autoplay: 'true' === 'true',
+                theme: '#42b983',
+                loop: 'all',
+                order: 'list',
+                preload: 'auto',
+                volume: Number('0.8'),
+                listFolded: 'false' === 'false',
+                listMaxHeight: '',
+                audio: eval([{"name":"幸せな结末","artist":"大瀧詠一","url":"http://music.163.com/song/media/outer/url?id=491857.mp3","cover":"http://p2.music.126.net/9WsKmWod4yapwrjpaFCyvg==/5883486720419427.jpg?param=130y130"},{"name":"两个人的烟火","artist":"黎明","url":"http://music.163.com/song/media/outer/url?id=25638599.mp3","cover":"http://p2.music.126.net/cpYgyAk4lkVCFo1Icj9dxg==/642114790659533.jpg?param=130y130"},{"name":"初恋情人","artist":"刘小慧","url":"http://music.163.com/song/media/outer/url?id=263720.mp3","cover":"http://p2.music.126.net/FuEYRKEmkJKyblI9Ti983w==/24189255826667.jpg?param=130y130"},{"name":"DDU-DU DDU-DU","artist":"BLACKPINK","url":"http://music.163.com/song/media/outer/url?id=1325896374.mp3","cover":"http://p1.music.126.net/yKysEblB7-HOVrUCjvRhqw==/109951163678530141.jpg?param=130y130"},{"name":"Crush!","artist":"Tahiti 80","url":"http://music.163.com/song/media/outer/url?id=28677788.mp3","cover":"http://p1.music.126.net/mGftCfmCsKj_9Ene7CYsag==/5834008697196658.jpg?param=130y130"}])
+            });
+        });
+    </script>
+</body>
+</html>
