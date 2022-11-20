@@ -128,6 +128,14 @@ public class LoginController {
 
     }
 
+    @GetMapping("/index")
+    public String index(Model model){
+        //最新博客信息
+        List<BlogQuery> newBlogs = blogService.selectNewBlogs();
+        model.addAttribute("newBlogs", newBlogs);
+        return "admin/index";
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         System.out.println("==============执行注销============");

@@ -17,7 +17,7 @@
 <nav  th:fragment="menu(n)" class="ui attached segment m-padded-tb-mini m-shadow-small ">
     <div class="ui container">
         <div class="ui secondary stackable menu">
-            <h2 class="ui blue header item"><a href="#" th:href="@{/admin/blogs}">后台管理</a></h2>
+            <h2 class="ui blue header item"><a href="#" th:href="@{/admin/index}">后台管理</a></h2>
             <a href="#" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon"></i>博客</a>
             <a href="#" th:href="@{/admin/types}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i class="book icon"></i>分类</a>
             <a href="#" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon"></i>标签</a>
@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="ui inverted section divider"></div>
-        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2020 Designed by ChenLinFeng</p>
+        <p class="m-text-thin m-text-spaced m-opacity-tiny">Copyright © 2022 Designed by ChenLinFeng</p>
         <span id="timeDate" class="m-text-thin m-text-spaced m-opacity-tiny">载入天数...</span><span id="times" class="m-text-thin m-text-spaced m-opacity-tiny">载入时分秒...</span>
         <script>
             var now = new Date();
