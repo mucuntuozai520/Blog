@@ -4,7 +4,7 @@
 
 后端：SpringBoot，SpringMVC, Spring, Mybatis，Shiro，thymeleaf模板。
 
-插件集成：Markdown， Animate，Tocbot，Qrcode， Aplayer，Live-2D。
+插件集成：Markdown， Animate，Tocbot，Qrcode， Aplayer，Live-2D，CkPlayer。
 
 数据库：Mysql
 
