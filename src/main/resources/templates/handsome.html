@@ -11,7 +11,7 @@
 <link type="text/css" rel="stylesheet" href="../static/lib/ckplayer/css/ckplayer.css" th:href="@{/lib/ckplayer/css/ckplayer.css}"/>
 <script type="text/javascript" src="../static/lib/ckplayer/js/ckplayer.js" charset="UTF-8" th:src="@{/lib/ckplayer/js/ckplayer.js}"></script>
 <style type="text/css">
-    #video1,#video2
+    #video1,#video2,#video3
     {
         margin: 0  auto ;
         margin-top: 20px;
@@ -52,7 +52,7 @@
                     <h3 class="ui blue header" style="color: #5A5CAD">帅哥鉴赏</h3>
                 </div>
                 <div class="right aligned column">
-                    共 <h2 class="ui orange header m-inline-block m-text-thin">2</h2>位
+                    共 <h2 class="ui orange header m-inline-block m-text-thin">3</h2>位
                 </div>
             </div>
         </div>
@@ -72,6 +72,16 @@
                 <h3 class="big ui basic button" th:classappend="'violet'" >黎明</h3>
             </div>
             <div id="video2" class="video1" style="width: 340px;height: 300px;">黎明</div>
+            <br>
+        </div>
+        <br>
+        <br>
+        <br>
+        <div style="text-align: center" class="ui top attached blue segment">
+            <div class="ui labeled button m-margin-tb-tiny">
+                <h3 class="big ui basic button" th:classappend="'violet'" >元彬</h3>
+            </div>
+            <div id="video3" class="video2" style="width: 340px;height: 300px;">元彬</div>
             <br>
         </div>
 
@@ -134,14 +144,21 @@
     //定义一个变量：videoObject，用来做为视频初始化配置
     var videoObject = {
         container: '.video', //“#”代表容器的ID，“.”或“”代表容器的class
-        video: 'https://vdn6.vzuu.com/HD/0b6f5850-6a29-11ed-811c-6a0132fd1bc7-v8_t21-wlwPmXn9vi.mp4?pkey=AAW0qHGhKrMwxFWGcWpcHUftWiU4ZazKWFz-l0FSyOaxp5p29WChr40avw0DPXRThdTTq2QFW2vina-CegHgcB0s&c=avc.8.0&f=mp4&pu=1513c7c2&bu=http-1513c7c2&expiration=1669104066&v=ks6'//视频地址
+        video: 'https://vdn6.vzuu.com/HD/0b6f5850-6a29-11ed-811c-6a0132fd1bc7-v8_t21-wlwPmXn9vi.mp4?pkey=AAX2o9ueM8cErrI1QzdVSmFmdKdzfCvt_McfGb2lkqXVCDvNMhuJ1gLOPfgGTWvi-5l3oYlWdH9rRHu1GBOamo_X&c=avc.8.0&f=mp4&pu=1513c7c2&bu=http-1513c7c2&expiration=1669113500&v=ks6'//视频地址
     };
     var player = new ckplayer(videoObject);//初始化播放器
 
     //定义一个变量：videoObject，用来做为视频初始化配置
     var videoObject = {
         container: '.video1', //“#”代表容器的ID，“.”或“”代表容器的class
-        video: 'https://vdn6.vzuu.com/HD/635cf792-6a2a-11ed-8ddd-76f1574f802d-v8_t21-wlwetZCgol.mp4?pkey=AAVnsmXvyIGwY1Er7MXn2IQXbNWoRownpNLpxFajA7AXQU0nBWtMniVEAy8nPIG8qpYLMYvoVv3QWkoCH4olYp2F&c=avc.8.0&f=mp4&pu=1513c7c2&bu=http-1513c7c2&expiration=1669103909&v=ks6'//视频地址
+        video: 'https://vdn6.vzuu.com/HD/635cf792-6a2a-11ed-8ddd-76f1574f802d-v8_t21-wlwetZCgol.mp4?pkey=AAV23pTfO5SW7mt_XgfAaD_YVrpf3G8VdPOxWLlVdz_w-ju4lPeMaYGy4VlmuWGWEcJGRh29odl_-2KqHxxcAcur&c=avc.8.0&f=mp4&pu=1513c7c2&bu=http-1513c7c2&expiration=1669113553&v=ks6'//视频地址
+    };
+    var player = new ckplayer(videoObject);//初始化播放器
+
+    //定义一个变量：videoObject，用来做为视频初始化配置
+    var videoObject = {
+        container: '.video2', //“#”代表容器的ID，“.”或“”代表容器的class
+        video: 'https://vdn3.vzuu.com/HD/d967b386-6a3f-11ed-a103-b6c2cb0a3e0f-v8_t21-wlw3YlQwnl.mp4?disable_local_cache=1&bu=http-1513c7c2&c=avc.8.0&f=mp4&expiration=1669109978&auth_key=1669109978-0-0-fd158c662ea11061d76aaff63139320e&v=tx&pu=1513c7c2'//视频地址
     };
     var player = new ckplayer(videoObject);//初始化播放器
 </script>
