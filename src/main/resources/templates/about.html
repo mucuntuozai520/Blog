@@ -50,9 +50,9 @@
                     <span th:text="${session.theUser.nickname}">CLF</span>
                     <i class="dropdown icon" style="margin-top: 13px"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/user/userInfo}" class="item"><i class="user icon"></i>个人信息</a>
-                        <a href="#" th:href="@{/user/passwordInfo}" class="item"><i class="lock icon"></i>修改密码</a>
-                        <a href="#" th:href="@{/user/logout}" class="item"><i class="sign out icon"></i>退出登录</a>
+                        <a href="#" th:href="@{/user/userInfo}" target="_blank" class="item"><i class="user icon"></i>个人信息</a>
+                        <a href="#" th:href="@{/user/passwordInfo}" target="_blank" class="item"><i class="lock icon"></i>修改密码</a>
+                        <a href="#" th:href="@{/user/logout}" target="_blank" class="item"><i class="sign out icon"></i>退出登录</a>
                     </div>
                 </div>
             </div>
