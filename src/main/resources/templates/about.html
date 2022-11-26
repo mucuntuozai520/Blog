@@ -44,12 +44,14 @@
             <a href="#" target="_blank" th:if="${session.theUser}==null" th:href="@{/user/toRegister}"
                class="left m-item item m-mobile-hide"><i class="heartbeat icon"></i>注册</a>
 
-            <div class="left m-item m-mobile-hide menu" th:if="${session.theUser}!=null">
+            <div class="ui vertical left m-item m-mobile-hide menu" style="border-color:#ffffff;box-shadow:0 0px 0px #ffffff" th:if="${session.theUser}!=null">
                 <div class="ui dropdown item">
                     <img class="ui avatar image" th:src="${session.theUser.avatar}" style="width: 40px;height: 40px">&nbsp;&nbsp;
                     <span th:text="${session.theUser.nickname}">CLF</span>
-                    <i class="dropdown icon"></i>
+                    <i class="dropdown icon" style="margin-top: 13px"></i>
                     <div class="menu">
+                        <a href="#" th:href="@{/user/userInfo}" class="item"><i class="user icon"></i>个人信息</a>
+                        <a href="#" th:href="@{/user/passwordInfo}" class="item"><i class="lock icon"></i>修改密码</a>
                         <a href="#" th:href="@{/user/logout}" class="item"><i class="sign out icon"></i>退出登录</a>
                     </div>
                 </div>
