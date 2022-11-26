@@ -1,7 +1,9 @@
 package com.clf.blog.controller.user;
 
+import com.clf.blog.entity.Comment;
 import com.clf.blog.entity.User;
 import com.clf.blog.service.BlogService;
+import com.clf.blog.service.CommentService;
 import com.clf.blog.service.UserService;
 import com.clf.blog.util.Base64Decode;
 import com.clf.blog.util.Base64Encode;
@@ -15,6 +17,7 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -33,7 +36,7 @@ import java.util.Objects;
 public class UserController {
 
     @Autowired
-    private BlogService blogService;
+    private CommentService commentService;
     @Autowired
     private UserService userService;
 
@@ -90,7 +93,7 @@ public class UserController {
 
             //获取用户信息放进session
             User user = userService.selectUser(username);
-            user.setPassword(null);
+//            user.setPassword(null);
             session.setAttribute("theUser", user);
             session.setMaxInactiveInterval(-1);
 
@@ -134,6 +137,57 @@ public class UserController {
         session.removeAttribute("theUser");
         lastUrl = request.getHeader("Referer");
         return "redirect:" + lastUrl;
+    }
+
+    @GetMapping("/userInfo")
+    public String userInfo(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("theUser");
+        User userInfo = userService.selectUser(user.getUsername());
+        model.addAttribute("userInfo", userInfo);
+        return "userInfo";
+    }
+
+    @PostMapping("/saveInfo")
+    public String saveInfo(User user, RedirectAttributes redirectAttributes, HttpSession session) {
+        System.out.println("user对象：" + user);
+
+        int count = userService.updateUserInfo(user);
+        //更新评论模块中管理员的信息
+        int result = commentService.updateUserComment(new Comment(user.getId(),user.getNickname(), user.getEmail()));
+        //更新Session
+        session.removeAttribute("theUser");
+        User user1 = userService.selectUser(user.getUsername());
+        user1.setPassword(null);
+        session.setAttribute("theUser", user1);
+        session.setMaxInactiveInterval(-1);
+
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping ("/passwordInfo")
+    public String passWordInfo() {
+        return "passwordInfo";
+    }
+
+    @PostMapping("/password")
+    public String password(@RequestParam String newPassword, User user, RedirectAttributes redirectAttributes, HttpSession session) {
+        User user1 = (User) session.getAttribute("theUser");
+        String password = user1.getPassword();
+        String newpassword = Md5SaltEncode.md5Hash(user.getPassword(), user.getUsername(), 3);
+        if(password.equals(newpassword)){
+            user.setPassword(Md5SaltEncode.md5Hash(newPassword, user.getUsername(), 3));
+            userService.updatePassword(user);
+            session.removeAttribute("theUser");
+            return "jump1";
+        }else{
+            redirectAttributes.addFlashAttribute("message", "旧密码输入错误⊙﹏⊙");
+            return "redirect:/user/passwordInfo";
+        }
     }
 
     @PostMapping("/register")

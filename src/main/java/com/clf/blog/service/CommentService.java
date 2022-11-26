@@ -14,6 +14,8 @@ public interface CommentService {
 
     int updateAdminComment(Comment comment);
 
+    int updateUserComment(Comment comment);
+
     Long selectCommentCount(Long blogId);
 
     List<Comment> selectComments();

@@ -20,10 +20,26 @@ public class Comment {
 
     private boolean adminComment;
 
+    private Long userComment;
+
+    public Long isUserComment() {
+        return userComment;
+    }
+
+    public void setUserComment(Long userComment) {
+        this.userComment = userComment;
+    }
+
     public Comment() {
     }
 
     public Comment(String nickname, String email) {
+        this.nickname = nickname;
+        this.email = email;
+    }
+
+    public Comment(Long userComment,String nickname, String email) {
+        this.userComment=userComment;
         this.nickname = nickname;
         this.email = email;
     }

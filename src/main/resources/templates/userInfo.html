@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<head th:replace="admin/_fragments :: head(~{::title})">
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0"><!--兼容移动端显示-->
     <title>个人信息</title>
@@ -21,18 +21,18 @@
                     </div>
                 </h2>
 
-                <form class="ui large form" method="post" action="#" th:action="@{/admin/saveInfo}">
+                <form class="ui large form" method="post" action="#" th:action="@{/user/saveInfo}">
                     <div class="ui segment">
-                        <input type="hidden" name="id" th:value="${session.user.id}"/>
+                        <input type="hidden" name="id" th:value="${session.theUser.id}"/>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="username" th:value="${session.user.username}" readonly placeholder="用户名">
+                                <input type="text" name="username" th:value="${session.theUser.username}" readonly placeholder="用户名">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
-                                <i class="user icon"></i>
+                                <i class="smile icon"></i>
                                 <input type="text" name="nickname" th:value="${userInfo.nickname}" placeholder="昵称">
                             </div>
                         </div>
@@ -91,17 +91,17 @@
         fields: {
             nickname: {
                 identifier: 'nickname',
-                rules: [{
-                    type: 'empty',
-                    prompt: '请输入昵称！'
-                }]
-            },
-            password: {
-                identifier: 'password',
-                rules: [{
-                    type: 'empty',
-                    prompt: '请输入密码！'
-                }]
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '请输入昵称'
+                    },
+                    {
+                        type: 'regExp',
+                        value: '(^[a-zA-Z]{2,5}$)|(^[\\u2E80-\\u9FFF]{2,5}$)',
+                        prompt: '昵称必须是2-5位中文或2-5位英文'
+                    }
+                ]
             },
             email: {
                 identifier: 'email',

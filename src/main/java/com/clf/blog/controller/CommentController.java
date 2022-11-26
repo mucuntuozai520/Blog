@@ -62,9 +62,11 @@ public class CommentController {
             } else {
                 //普通用户，设置默认的头像
                 comment.setAvatar(avatar);
+                comment.setUserComment(theUser.getId());
             }
         } else {
             comment.setAvatar(avatar);
+            comment.setUserComment(theUser.getId());
         }
 
         commentService.saveComment(comment);

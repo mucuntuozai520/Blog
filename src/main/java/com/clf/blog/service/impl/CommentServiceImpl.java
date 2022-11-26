@@ -59,6 +59,12 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.updateAdminComment(comment);
     }
 
+    @Transactional
+    @Override
+    public int updateUserComment(Comment comment) {
+        return commentRepository.updateUserComment(comment);
+    }
+
     @Override
     public Long selectCommentCount(Long blogId) {
         return commentRepository.selectCommentCount(blogId);

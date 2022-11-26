@@ -37,7 +37,7 @@
 
     <insert id="saveComment" parameterType="Comment">
         insert into t_comment values (#{id},#{nickname},#{email},#{content},#{avatar},
-        #{createTime},#{blog.id},#{parentComment.id},#{parentComment.nickname},#{adminComment})
+        #{createTime},#{blog.id},#{parentComment.id},#{parentComment.nickname},#{adminComment},#{userComment})
     </insert>
 
     <select id="selectCommentByParentCommentId" parameterType="Long" resultMap="comment_blog_map">
@@ -49,8 +49,12 @@
         delete from t_comment where blog_id=#{blog_id}
     </delete>
 
-    <update id="updateAdminComment">
+    <update id="updateAdminComment" parameterType="comment">
         update t_comment set nickname=#{nickname},email=#{email} where admin_comment=1
+    </update>
+
+    <update id="updateUserComment" parameterType="comment">
+        update t_comment set nickname=#{nickname},email=#{email} where user_comment=#{userComment}
     </update>
 
     <select id="selectCommentCount" parameterType="Long" resultType="Long">

@@ -18,6 +18,10 @@
         update t_user set nickname=#{nickname},email=#{email} where id=#{id}
     </update>
 
+    <update id="updatePassword" parameterType="User">
+        update t_user set password=#{password} where id=#{id}
+    </update>
+
     <select id="getAvatar" resultType="String">
         select avatar from t_user where type=1;
     </select>

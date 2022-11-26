@@ -19,4 +19,6 @@ public interface UserService {
 
     int deleteUser(Long id);
 
+    int updatePassword(User user);
+
 }

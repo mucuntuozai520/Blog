@@ -23,4 +23,6 @@ public interface UserRepository {
     int deleteUser(Long id);
 
     String selectNickNameById(Long id);
+
+    int updatePassword(User user);
 }

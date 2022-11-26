@@ -4,7 +4,6 @@ import com.clf.blog.dao.CommentRepository;
 import com.clf.blog.dao.UserRepository;
 import com.clf.blog.entity.User;
 import com.clf.blog.service.UserService;
-import com.clf.blog.util.Md5Encode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -69,5 +68,11 @@ public class UserServiceImpl implements UserService {
         session.removeAttribute("theUser");
         return userRepository.deleteUser(id);
     }
+
+    @Override
+    public int updatePassword(User user) {
+        return userRepository.updatePassword(user);
+    }
+
 
 }
