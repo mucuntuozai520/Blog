@@ -20,7 +20,8 @@ server:
     session:
       tracking-modes: COOKIE  #解决自动在请求URL后加了jsessionid的BUG
 
-comment.avatar: /images/avatar.jpg
+comment:
+   avatar: /images/avatar.jpg
 
 ---
 
